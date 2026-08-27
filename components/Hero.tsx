@@ -10,7 +10,6 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { CtaButton } from "@/components/CtaButton";
-import { ProductMockup } from "@/components/ProductMockup";
 import { site } from "@/data/site";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -34,8 +33,8 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/20" />
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 md:gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:px-8 lg:py-20">
-        <div>
+      <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-24">
+        <div className="max-w-xl lg:max-w-2xl">
           <p className="kicker inline-flex items-center gap-2 text-cyan-deep">
             <span className="h-1.5 w-1.5 rounded-full bg-ok" />
             {t.hero.eyebrow}
@@ -44,10 +43,10 @@ export function Hero() {
             {t.hero.titleA}
             <span className="block">{t.hero.titleB}</span>
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed font-normal text-navy/68 sm:text-lg">
+          <p className="mt-6 text-base leading-relaxed font-normal text-navy/68 sm:text-lg">
             {t.hero.body}
           </p>
-          <p className="mt-3 max-w-xl text-sm font-medium text-navy/72 sm:text-base">
+          <p className="mt-3 text-sm font-medium text-navy/72 sm:text-base">
             {t.hero.tracking}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -70,21 +69,6 @@ export function Hero() {
               );
             })}
           </ul>
-        </div>
-
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[20px] md:hidden">
-          <Image
-            src="/images/hero-wave-pool.jpg"
-            alt={t.hero.imageAlt}
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-        </div>
-
-        <div className="pb-4 sm:pb-10 lg:col-start-2">
-          <ProductMockup />
         </div>
       </div>
     </section>

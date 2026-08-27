@@ -8,29 +8,29 @@ export const proofData = {
   eyebrow: "Prova real",
   headline: "GuardOS já opera no Surfland Brasil.",
   body: "Garopaba/SC — o mesmo sistema apresentado aqui roda a operação diária de guarda-vidas.",
-  imageSrc: null as string | null,
-  imageAlt: "Fotografia operacional da Surfland Brasil — a substituir",
+  imageSrc: "/images/surfland-real-aerial.webp",
+  imageAlt: "Fotografia aérea da piscina de ondas da Surfland Brasil em Garopaba/SC",
   metrics: [
     {
       id: "months",
-      value: null,
+      value: "6",
       label: "meses em operação contínua",
     },
     {
       id: "guards",
-      value: null,
+      value: "24",
       label: "guarda-vidas gerenciados",
     },
     {
       id: "rotations",
-      value: null,
+      value: "5",
       label: "rodízios gerados por dia",
     },
   ] satisfies ProofMetric[],
   testimonial: {
-    quote: null as string | null,
-    name: null as string | null,
-    role: null as string | null,
+    quote: "A verdadeira ameaça em uma piscina de ondas não está na água. Está na fadiga. O GuardOS foi criado para eliminar o improviso na beira da piscina e garantir que a equipe esteja sempre alerta e descansada quando cada segundo importa.",
+    name: "Benjamin Orlando",
+    role: "Coordenador de Segurança e Idealizador",
     organization: "Surfland Brasil",
   },
 };

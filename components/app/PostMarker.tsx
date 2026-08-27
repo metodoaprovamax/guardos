@@ -15,6 +15,10 @@ export function PostMarker({
   onSelect: (id: typeof post.id) => void;
 }) {
   const attention = assignment.status !== "OK";
+  
+  const femaleInitials = ["AA", "AR"];
+  const isFemale = femaleInitials.includes(assignment.initials);
+  const avatarUrl = assignment.initials === "—" ? null : isFemale ? "/images/avatar-f.jpg" : "/images/avatar-m.jpg";
 
   return (
     <button
@@ -45,11 +49,20 @@ export function PostMarker({
         </span>
         <span
           className={cn(
-            "-mt-1 grid h-8 min-w-8 place-items-center rounded-full bg-navy px-1.5 text-[10px] font-semibold text-white",
+            "-mt-1 grid h-8 min-w-8 place-items-center rounded-full bg-navy text-[10px] font-semibold text-white overflow-hidden",
             selected && "ring-2 ring-white",
           )}
         >
-          {assignment.initials}
+          {avatarUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={avatarUrl}
+              alt={assignment.initials}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            assignment.initials
+          )}
         </span>
       </span>
     </button>

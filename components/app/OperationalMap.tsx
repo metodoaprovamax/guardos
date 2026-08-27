@@ -83,7 +83,7 @@ export function OperationalMap({ session }: { session: DemoSession }) {
           {!imageFailed ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src="/guardos/wave-pool-map.jpg"
+              src="/guardos/wave-pool-real.webp"
               alt="Mapa operacional da piscina de ondas"
               className={cn(
                 "h-full w-full object-cover object-center",

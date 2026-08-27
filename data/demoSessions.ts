@@ -60,16 +60,13 @@ export type DemoSession = {
 };
 
 export const mapPosts: MapPost[] = [
-  { id: "pier", code: "PIER", label: "Pier", kind: "special", x: 49, y: 30 },
-  { id: "p02", code: "02", label: "Posto 02", kind: "edge", x: 37, y: 18 },
-  { id: "p04", code: "04", label: "Posto 04", kind: "edge", x: 68, y: 24 },
-  { id: "p01", code: "01", label: "Posto 01", kind: "edge", x: 23, y: 34 },
-  { id: "ct", code: "CT", label: "Torre de Controle", kind: "special", x: 13, y: 46 },
-  { id: "p03", code: "03", label: "Posto 03", kind: "edge", x: 20, y: 58 },
-  { id: "p05", code: "05", label: "Posto 05", kind: "edge", x: 80, y: 46 },
-  { id: "p06", code: "06", label: "Posto 06", kind: "edge", x: 72, y: 66 },
-  { id: "p07", code: "07", label: "Posto 07", kind: "edge", x: 42, y: 72 },
-  { id: "lobby", code: "LOBBY", label: "Lobby", kind: "special", x: 52, y: 88 },
+  { id: "pier", code: "PIER", label: "Pier", kind: "special", x: 36, y: 28 },
+  { id: "p02", code: "02", label: "Posto 02", kind: "edge", x: 15, y: 25 },
+  { id: "p03", code: "03", label: "Posto 03", kind: "edge", x: 31, y: 60 },
+  { id: "p04", code: "04", label: "Posto 04", kind: "edge", x: 35, y: 17 },
+  { id: "p05", code: "05", label: "Posto 05", kind: "edge", x: 53, y: 44 },
+  { id: "p06", code: "06", label: "Posto 06", kind: "edge", x: 74, y: 32 },
+  { id: "p07", code: "07", label: "Posto 07", kind: "edge", x: 48, y: 52 },
 ];
 
 const people = {

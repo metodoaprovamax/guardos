@@ -26,7 +26,10 @@ export function FairnessRanking() {
         </h3>
 
         <div className="mt-8 overflow-hidden rounded-xl border border-navy/8">
-          <div className="hidden grid-cols-[40px_1fr_72px_88px_1fr_140px] gap-3 border-b border-navy/8 bg-aqua px-4 py-2.5 text-[10px] font-semibold tracking-[0.12em] text-navy/45 uppercase md:grid">
+          <div 
+            className="hidden gap-3 border-b border-navy/8 bg-aqua px-4 py-2.5 text-[10px] font-semibold tracking-[0.12em] text-navy/45 uppercase md:grid"
+            style={{ gridTemplateColumns: "40px 1.2fr repeat(8, minmax(0, 1fr)) 1.5fr 140px" }}
+          >
             {t.fairness.columns.map((col) => (
               <span key={col}>{col}</span>
             ))}
@@ -43,22 +46,22 @@ export function FairnessRanking() {
                     index % 2 === 1 && !high && "bg-aqua/35",
                   )}
                 >
-                  <div className="grid items-center gap-3 md:grid-cols-[40px_1fr_72px_88px_1fr_140px]">
+                  <div 
+                    className="grid items-center gap-3 md:grid"
+                    style={{ gridTemplateColumns: "40px 1.2fr repeat(8, minmax(0, 1fr)) 1.5fr 140px" }}
+                  >
                     <span className="tabular text-xs text-navy/35">{row.rank}</span>
                     <div className="flex items-center justify-between md:block">
                       <p className="text-sm font-semibold text-navy">{row.label}</p>
                       <span className="tabular text-xs text-navy/45 md:hidden">
-                        {t.fairness.mobileMeta
-                          .replace("{shifts}", String(row.shifts))
-                          .replace("{guide}", String(row.guidePercent))}
+                        {t.fairness.mobileMeta}
                       </span>
                     </div>
-                    <p className="tabular hidden text-sm text-navy/70 md:block">
-                      {row.shifts}
-                    </p>
-                    <p className="tabular hidden text-sm text-navy/70 md:block">
-                      {row.guidePercent}%
-                    </p>
+                    {row.posts.map((count, pIdx) => (
+                      <p key={pIdx} className="tabular hidden text-sm text-navy/70 md:block">
+                        {count}
+                      </p>
+                    ))}
                     <div className="h-2 overflow-hidden rounded-full bg-navy/8">
                       <div
                         className={cn(
@@ -97,11 +100,7 @@ export function FairnessRanking() {
           <div className="flex items-center justify-between gap-4 bg-aqua px-4 py-3 text-xs text-navy/55">
             <span>{t.fairness.average}</span>
             <span className="tabular">
-              {fairnessTeamAverage.shifts}{" "}
-              {t.fairness.averageDetail.replace(
-                "{n}",
-                String(fairnessTeamAverage.guidePercent),
-              )}
+              {t.fairness.averageDetail}
             </span>
           </div>
         </div>

@@ -1,13 +1,11 @@
 "use client";
 
 import { FairnessRanking } from "@/components/FairnessRanking";
-import { FatigueChart } from "@/components/FatigueChart";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Modules } from "@/components/Modules";
-import { Pricing } from "@/components/Pricing";
 import { ProblemSection } from "@/components/ProblemSection";
 import { Roadmap } from "@/components/Roadmap";
 import { RotationExpress } from "@/components/RotationExpress";
@@ -37,14 +35,12 @@ export function Landing({ locale }: { locale: Locale }) {
                 <RotationMap />
                 <TrackingMessage />
                 <RotationExpress />
-                <FatigueChart />
                 <FairnessRanking />
               </div>
             </div>
           </section>
           <Modules />
           <SurflandProof />
-          <Pricing />
           <Roadmap />
           <FinalCTA />
         </main>
