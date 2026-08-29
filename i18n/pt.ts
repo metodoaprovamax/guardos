@@ -26,11 +26,10 @@ export const pt: Dictionary = {
   },
   lang: { pt: "PT", en: "EN" },
   hero: {
-    titleA: "A verdadeira ameaça",
-    titleB: "está na fadiga.",
-    body: "No escritório, a planilha ou o quadro branco de escalas pareciam perfeitos. Mas na beira da piscina, sob o sol forte e reflexo da água, a fadiga se instala e a cegueira de zona acontece. O GuardOS automatiza rodízios e monitora a fadiga física em tempo real.",
-    tracking:
-      "Porque quando um banhista afunda, os segundos cruciais de tempo de resposta determinam tudo.",
+    titleA: "The Guard",
+    titleB: "Operational System.",
+    body: "Um sistema operacional de segurança para ambientes aquáticos — para o rodízio não atrasar e cada posto permanecer coberto.",
+    tracking: "",
     cta: "Agendar demonstração",
     secondary: "Explorar o sistema",
     imageAlt: "Vista aérea de uma operação de piscina de ondas em Garopaba",

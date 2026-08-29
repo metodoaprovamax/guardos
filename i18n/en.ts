@@ -26,11 +26,10 @@ export const en: Dictionary = {
   },
   lang: { pt: "PT", en: "EN" },
   hero: {
-    titleA: "The real threat",
-    titleB: "is in the fatigue.",
-    body: "In the office, the spreadsheet or whiteboards seemed perfect. But pool-side, under the hot sun and water glare, fatigue sets in and zone blindness happens. GuardOS automates safety rotations and monitors lifeguard physical fatigue in real time.",
-    tracking:
-      "Because when a swimmer goes under, the crucial seconds of response time determine everything.",
+    titleA: "The Guard",
+    titleB: "Operational System.",
+    body: "An operational safety system for aquatic environments — so rotations stay on time and every position stays covered.",
+    tracking: "",
     cta: "Book a demo",
     secondary: "Explore the system",
     imageAlt: "Aerial view of a wave-pool operation in Garopaba",

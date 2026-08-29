@@ -31,11 +31,6 @@ export function Hero() {
           <p className="mt-6 max-w-[30rem] text-base leading-relaxed text-navy/70 sm:text-lg">
             {t.hero.body}
           </p>
-          {t.hero.tracking ? (
-            <p className="mt-3 max-w-[30rem] text-sm font-medium text-navy/72 sm:text-base">
-              {t.hero.tracking}
-            </p>
-          ) : null}
           <div className="mt-8">
             <CtaButton href={site.ctaHref}>{t.hero.cta}</CtaButton>
           </div>

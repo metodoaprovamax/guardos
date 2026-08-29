@@ -5,28 +5,6 @@ import { rotationPosts } from "@/data/demoRotationData";
 import { useI18n } from "@/lib/i18n-context";
 import { cn } from "@/lib/cn";
 
-const ALL_GUARDS = [
-  { initials: "LS", name: "Leonardo Souza" },
-  { initials: "MR", name: "Marcos Ribeiro" },
-  { initials: "JP", name: "João Pedro" },
-  { initials: "TZ", name: "Thiago Zani" },
-  { initials: "RC", name: "Rafael Costa" },
-  { initials: "AA", name: "Ana Alves" },
-  { initials: "BN", name: "Bruno Nunes" },
-  { initials: "AR", name: "Amanda Reis" },
-];
-
-const GUARD_TO_LG: Record<string, string> = {
-  LS: "LG1",
-  MR: "LG2",
-  JP: "LG3",
-  TZ: "LG4",
-  RC: "LG5",
-  AA: "LG6",
-  BN: "LG7",
-  AR: "LG8",
-};
-
 export function PoolDiagram({
   assignments,
   compact = false,
@@ -35,99 +13,88 @@ export function PoolDiagram({
   compact?: boolean;
 }) {
   const { t } = useI18n();
-
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl bg-[#0a2c36] w-full aspect-[16/9]",
+        "relative overflow-hidden rounded-xl bg-[#0a2c36]",
+        compact ? "aspect-[16/11] min-h-[220px]" : "aspect-[16/11] min-h-[280px] sm:min-h-[380px]",
       )}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/guardos/wave-pool-real.webp"
-        alt="Mapa da piscina de ondas real"
-        className="absolute inset-0 h-full w-full object-cover object-center"
-      />
-
-      {/* 1. Static Post Labels (Empty slots on the map) */}
-      {rotationPosts.map((post) => (
-        <div
-          key={`label-${post.id}`}
-          className="absolute -translate-x-1/2 -translate-y-1/2 text-center"
-          style={{ left: `${post.x}%`, top: `${post.y}%` }}
+      <svg
+        viewBox="0 0 1000 700"
+        className="absolute inset-0 h-full w-full"
+        aria-hidden
+      >
+        <rect width="1000" height="700" fill="#0a2c36" />
+        <path
+          d="M90 210 C 90 110, 910 110, 910 210 L 910 470 C 910 580, 90 580, 90 470 Z"
+          fill="#0e5c6b"
+        />
+        <path
+          d="M130 230 C 130 150, 870 150, 870 230 L 870 450 C 870 540, 130 540, 130 450 Z"
+          fill="#1494a6"
+        />
+        <path
+          d="M180 250 C 260 190, 720 190, 820 250 C 760 280, 260 280, 180 250 Z"
+          fill="#7fd4df"
+          opacity="0.55"
+        />
+        <path
+          d="M170 330 C 280 300, 740 300, 830 340 C 740 370, 270 360, 170 330 Z"
+          fill="#0d7484"
+          opacity="0.45"
+        />
+        <path
+          d="M190 410 C 320 380, 700 385, 810 425 C 690 455, 300 445, 190 410 Z"
+          fill="#ffffff"
+          opacity="0.16"
+        />
+        <rect x="360" y="92" width="280" height="38" rx="4" fill="#c4a574" />
+        <text
+          x="500"
+          y="78"
+          textAnchor="middle"
+          fill="rgba(255,255,255,0.55)"
+          fontSize="16"
+          letterSpacing="4"
         >
-          <div
-            className={cn(
-              "mx-auto rounded-full border border-white/20 bg-black/40",
-              compact ? "h-7 w-7" : "h-8 w-8 sm:h-9 sm:w-9",
-            )}
-          />
-          <p
-            className={cn(
-              "mt-1 font-semibold tracking-[0.14em] text-white/50",
-              compact ? "text-[8px]" : "text-[9px]",
-            )}
-          >
-            {post.label}
-          </p>
-        </div>
-      ))}
+          {t.map.pool.toUpperCase()}
+        </text>
+      </svg>
 
-      {/* 2. Dynamic Moving Lifeguards (Avatars that slide to assigned posts) */}
-      {ALL_GUARDS.map((guard) => {
-        // Find if this guard is assigned to any post in current session
-        const assignedPostId = (Object.keys(assignments) as PostId[]).find(
-          (key) => assignments[key].initials === guard.initials
-        );
-        
-        // Find if the post is in the visible rotationPosts list
-        const post = rotationPosts.find((p) => p.id === assignedPostId);
-        
-        // Coords: post coords if active/visible, otherwise slide to rest area
-        const x = post ? post.x : 50;
-        const y = post ? post.y : 90;
-        const isOnDuty = !!post;
-
-        const femaleInitials = ["AA", "AR"];
-        const isFemale = femaleInitials.includes(guard.initials);
-        const avatarUrl = isFemale ? "/images/avatar-f.jpg" : "/images/avatar-m.jpg";
-
+      {rotationPosts.map((post) => {
+        const guard = assignments[post.id];
+        const isRest = guard.initials === "—";
         return (
           <div
-            key={guard.initials}
-            className="absolute -translate-x-1/2 -translate-y-1/2 text-center transition-all duration-[800ms] ease-in-out z-20"
-            style={{ left: `${x}%`, top: `${y}%` }}
+            key={post.id}
+            className="absolute -translate-x-1/2 -translate-y-1/2 text-center transition-all duration-500"
+            style={{ left: `${post.x}%`, top: `${post.y}%` }}
           >
             <div
               className={cn(
-                "mx-auto grid place-items-center rounded-full border font-semibold text-white transition-all duration-300 overflow-hidden",
+                "mx-auto grid place-items-center rounded-full border font-semibold text-white transition-all duration-500",
                 compact
                   ? "h-7 w-7 text-[9px]"
                   : "h-8 w-8 text-[10px] sm:h-9 sm:w-9 sm:text-[11px]",
-                !isOnDuty
-                  ? "border-white/10 bg-white/5 opacity-40 scale-75"
-                  : "border-cyan bg-[#0c2744] shadow-[0_0_12px_rgba(0,168,181,0.4)] ring-2 ring-cyan/20",
+                isRest
+                  ? "border-white/15 bg-white/10 text-white/50"
+                  : "border-cyan/70 bg-[#0c2744] shadow-[0_0_0_3px_rgb(0_168_181_/_0.16)]",
               )}
             >
-              <img
-                src={avatarUrl}
-                alt={guard.initials}
-                className="h-full w-full object-cover"
-              />
+              {isRest ? "—" : guard.initials}
             </div>
-            <p className="text-[9px] font-bold text-white/80 mt-0.5">
-              {GUARD_TO_LG[guard.initials] || guard.initials}
+            <p
+              className={cn(
+                "mt-1 font-medium tracking-[0.14em] text-white/70",
+                compact ? "text-[8px]" : "text-[9px]",
+              )}
+            >
+              {post.label}
             </p>
           </div>
         );
       })}
-
-      {/* Rest Zone Label at bottom */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-center">
-        <span className="rounded-full bg-black/55 border border-white/10 px-2.5 py-0.5 text-[8px] font-semibold tracking-wider text-white/50 uppercase backdrop-blur-sm">
-          Intervalo / Apoio
-        </span>
-      </div>
     </div>
   );
 }

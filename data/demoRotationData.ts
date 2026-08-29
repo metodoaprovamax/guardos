@@ -36,12 +36,15 @@ export type RotationSession = {
 };
 
 export const rotationPosts: RotationPost[] = [
-  { id: "pier", label: "PIER", x: 36, y: 28 },
-  { id: "p02", label: "02", x: 15, y: 25 },
-  { id: "p03", label: "03", x: 31, y: 60 },
-  { id: "p04", label: "04", x: 35, y: 17 },
-  { id: "p05", label: "05", x: 53, y: 44 },
-  { id: "p06", label: "06", x: 74, y: 32 },
+  { id: "pier", label: "PIER", x: 50, y: 7 },
+  { id: "p01", label: "01", x: 14, y: 26 },
+  { id: "p02", label: "02", x: 10, y: 50 },
+  { id: "p03", label: "03", x: 22, y: 78 },
+  { id: "p04", label: "04", x: 78, y: 78 },
+  { id: "p05", label: "05", x: 90, y: 50 },
+  { id: "p06", label: "06", x: 86, y: 26 },
+  { id: "ct", label: "CT", x: 28, y: 93 },
+  { id: "lobby", label: "LOBBY", x: 72, y: 93 },
 ];
 
 export const demoRotationData: RotationSession[] = [
