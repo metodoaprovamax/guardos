@@ -26,12 +26,14 @@ export function OperationalMap({
   size = "app",
   selected: selectedProp,
   onSelectedChange,
+  mapSrc = "/guardos/wave-pool-map.jpg",
 }: {
   session: DemoSession;
   preview?: boolean;
   size?: "preview" | "section" | "capture" | "app";
   selected?: PostId | null;
   onSelectedChange?: (id: PostId | null) => void;
+  mapSrc?: string;
 }) {
   const { t } = useI18n();
   const layerRef = useRef<HTMLDivElement>(null);
@@ -220,7 +222,7 @@ export function OperationalMap({
           {!imageFailed ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src="/guardos/wave-pool-map.jpg"
+              src={mapSrc}
               alt={t.ui.mapAlt}
               className="h-full w-full object-cover object-[center_42%]"
               onError={() => setImageFailed(true)}

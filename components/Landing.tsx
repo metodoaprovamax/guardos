@@ -12,6 +12,7 @@ import { Roadmap } from "@/components/Roadmap";
 import { RiskNarrative } from "@/components/RiskNarrative";
 import { RotationExpress } from "@/components/RotationExpress";
 import { ProofStrip } from "@/components/ProofStrip";
+import { SiteSwitch } from "@/components/SiteSwitch";
 import { SurflandProof } from "@/components/SurflandProof";
 import { getDictionary, type Locale } from "@/i18n";
 import { I18nProvider } from "@/lib/i18n-context";
@@ -46,6 +47,7 @@ export function Landing({ locale }: { locale: Locale }) {
           <Modules />
           <Roadmap />
           <FinalCTA />
+          <SiteSwitch current="surfland" />
         </main>
         <Footer />
       </div>

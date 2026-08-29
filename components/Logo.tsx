@@ -1,7 +1,8 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n-context";
-import { localePath } from "@/i18n";
+import { siteFromPath, siteHome } from "@/lib/landing-site";
 import { cn } from "@/lib/cn";
 
 export function Logo({
@@ -14,9 +15,11 @@ export function Logo({
   hideMotif?: boolean;
 }) {
   const { locale, t } = useI18n();
+  const pathname = usePathname() ?? "/";
+  const home = siteHome(locale, siteFromPath(pathname));
 
   return (
-    <a href={localePath(locale, "#topo")} className="group inline-flex items-center gap-2.5">
+    <a href={`${home}#topo`} className="group inline-flex items-center gap-2.5">
       <span
         className={cn(
           "grid h-8 w-8 place-items-center rounded-md border",

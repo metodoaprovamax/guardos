@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n-context";
+import { siteFromPath, siteHome } from "@/lib/landing-site";
 import { cn } from "@/lib/cn";
 
 export function LanguageSwitch({ inverted = false }: { inverted?: boolean }) {
   const { locale, t } = useI18n();
+  const pathname = usePathname() ?? "/";
+  const site = siteFromPath(pathname);
 
   return (
     <div
@@ -18,7 +22,7 @@ export function LanguageSwitch({ inverted = false }: { inverted?: boolean }) {
       aria-label="Language"
     >
       <Link
-        href="/pt"
+        href={siteHome("pt", site)}
         hrefLang="pt-BR"
         className={cn(
           "rounded-full px-2.5 py-1 transition-colors",
@@ -34,7 +38,7 @@ export function LanguageSwitch({ inverted = false }: { inverted?: boolean }) {
         {t.lang.pt}
       </Link>
       <Link
-        href="/"
+        href={siteHome("en", site)}
         hrefLang="en"
         className={cn(
           "rounded-full px-2.5 py-1 transition-colors",

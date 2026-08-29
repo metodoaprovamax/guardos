@@ -15,7 +15,7 @@ const previewSessions = [
   { session: demoSessions[2], kind: "next" as const },
 ];
 
-export function RotationMap() {
+export function RotationMap({ mapSrc }: { mapSrc?: string }) {
   const { t } = useI18n();
   const [activeId, setActiveId] = useState(previewSessions[1].session.id);
   const current =
@@ -79,7 +79,7 @@ export function RotationMap() {
       </div>
 
       <div className="grid gap-5 p-5 lg:grid-cols-[1.5fr_0.7fr] lg:p-6">
-        <OperationalMap session={session} size="section" />
+        <OperationalMap session={session} size="section" mapSrc={mapSrc} />
         <aside className="rounded-xl border border-[#E6EEF2] bg-[#F7FBFC] p-4">
           <p className="kicker text-navy/40">{t.map.selected}</p>
           <p className="mt-2 text-lg font-semibold">
