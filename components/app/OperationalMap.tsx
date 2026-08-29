@@ -220,9 +220,9 @@ export function OperationalMap({
           {!imageFailed ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src="/guardos/wave-pool-map.jpg"
+              src="/guardos/wave-pool-real.webp"
               alt={t.ui.mapAlt}
-              className="h-full w-full object-cover object-[center_42%]"
+              className="h-full w-full object-cover object-center"
               onError={() => setImageFailed(true)}
             />
           ) : (

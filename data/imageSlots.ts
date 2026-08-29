@@ -7,7 +7,7 @@
 export const images = {
   surflandHero: "/images/surfland/hero.jpg",
   surflandAerial: "/images/surfland/wave-pool-aerial.jpg",
-  operationalMap: "/guardos/wave-pool-map.jpg",
+  operationalMap: "/guardos/wave-pool-real.webp",
   pedro: "/images/surfland/pedro.png",
 } as const;
 
