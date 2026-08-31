@@ -105,9 +105,7 @@ export function ReportsScreen() {
                       <span className="ml-1.5 font-normal text-navy/40">#{row.rank}</span>
                     </span>
                     <span className="mt-0.5 block text-[11px] text-navy/45">
-                      {t.fairness.mobileMeta
-                        .replace("{shifts}", String(row.shifts))
-                        .replace("{guide}", String(row.guidePercent))}
+                      P1: {row.posto1} · P2: {row.posto2} · P3: {row.posto3} · P4: {row.posto4}
                     </span>
                     {high && (
                       <span className="mt-0.5 block text-[11px] text-[#D97706]">

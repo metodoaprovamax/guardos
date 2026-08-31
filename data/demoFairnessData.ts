@@ -120,9 +120,9 @@ export function sortFairnessByPriority(entries: FairnessEntry[]) {
 
 export function fairnessRollup(entries: FairnessEntry[]) {
   return {
-    high: 0,
-    avgShifts: 0,
-    avgIndex: 0,
-    avgLead: 0,
+    high: entries.filter((entry) => entry.priority === "ALTA").length,
+    avgShifts: fairnessTeamAverage.shifts,
+    avgIndex: fairnessTeamAverage.rotationIndex,
+    avgLead: fairnessTeamAverage.guidePercent,
   };
 }
