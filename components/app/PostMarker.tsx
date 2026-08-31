@@ -12,6 +12,7 @@ export function PostMarker({
   zoom = 1,
   minutesUntilSwap,
   dragging = false,
+  codeOverride,
   onDragStart,
   onDragMove,
   onDragEnd,
@@ -22,6 +23,8 @@ export function PostMarker({
   zoom?: number;
   minutesUntilSwap: number;
   dragging?: boolean;
+  /** Optional label override shown in the chip above the avatar (e.g. "LG1") */
+  codeOverride?: string;
   onDragStart: (id: typeof post.id, event: React.PointerEvent<HTMLButtonElement>) => void;
   onDragMove: (event: React.PointerEvent<HTMLButtonElement>) => void;
   onDragEnd: (event: React.PointerEvent<HTMLButtonElement>) => void;
@@ -60,6 +63,9 @@ export function PostMarker({
         left: `${post.x}%`,
         top: `${post.y}%`,
         transform: `translate(-50%, -50%) scale(${1 / zoom})`,
+        transition: dragging
+          ? "none"
+          : "left 1.1s cubic-bezier(0.4,0,0.2,1), top 1.1s cubic-bezier(0.4,0,0.2,1)",
       }}
     >
       <span
@@ -75,7 +81,7 @@ export function PostMarker({
             selected && "ring-4 ring-cyan/30",
           )}
         >
-          {post.code}
+          {codeOverride ?? post.code}
         </span>
         <span
           className={cn(

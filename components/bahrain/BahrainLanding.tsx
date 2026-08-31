@@ -15,6 +15,22 @@ import { TrackingMessage } from "@/components/TrackingMessage";
 import { BahrainHero } from "@/components/bahrain/BahrainHero";
 import { getDictionary, type Locale } from "@/i18n";
 import { I18nProvider } from "@/lib/i18n-context";
+import { bahrainPlacements } from "@/lib/mapPlacements";
+import type { PostId } from "@/data/demoSessions";
+
+/** Chips shown above each lifeguard avatar on the Bahrain map */
+const BAHRAIN_LG_LABELS: Partial<Record<PostId, string>> = {
+  pier:  "LG1",
+  p02:   "LG2",
+  ct:    "LG3",
+  p04:   "LG4",
+  p05:   "LG5",
+  p06:   "LG6",
+  p03:   "LG7",
+  p07:   "LG8",
+  lobby: "INT",
+};
+
 
 export function BahrainLanding({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -28,10 +44,29 @@ export function BahrainLanding({ locale }: { locale: Locale }) {
           <ProblemSection />
           <section id="solucao" className="bg-aqua">
             <div className="mx-auto max-w-7xl px-4 py-[var(--space-section)] sm:px-6 lg:px-8">
-              <h2 className="section-title max-w-3xl text-navy">{t.product.title}</h2>
-              <p className="mt-4 max-w-2xl text-lg text-navy/58">{t.product.body}</p>
-              <div className="mt-10 space-y-6">
-                <RotationMap mapSrc="/guardos/wave-pool-real.webp" />
+              {/* Social proof banner — live client */}
+              <div className="mb-8 flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full border border-ok/30 bg-ok/10 px-3 py-1.5">
+                  <span className="live-dot" />
+                  <span className="text-[11px] font-semibold tracking-[0.14em] text-ok uppercase">
+                    Em operação real
+                  </span>
+                </span>
+                <span className="text-sm text-navy/60">
+                  O GuardOS já está em uso na{" "}
+                  <strong className="text-navy">Surfland Brasil</strong> —
+                  gerenciando rodízios, fadiga e cobertura de postos em tempo real.
+                </span>
+              </div>
+
+              <div className="mt-0 space-y-6">
+                <RotationMap
+                  mapSrc="/guardos/wave-pool-real.webp"
+                  initialPlacements={bahrainPlacements}
+                  codeLabels={BAHRAIN_LG_LABELS}
+                  autoRotate
+                  minimal
+                />
                 <TrackingMessage />
                 <RotationExpress />
                 <FairnessRanking />

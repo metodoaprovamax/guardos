@@ -3,6 +3,7 @@
 import {
   demoFairnessData,
   fairnessTeamAverage,
+  sortFairnessByPriority,
 } from "@/data/demoFairnessData";
 import { useReveal } from "@/lib/useReveal";
 import { useI18n } from "@/lib/i18n-context";
@@ -20,18 +21,14 @@ export function FairnessRanking() {
       <p className="mt-2 max-w-xl text-navy/58">{t.fairness.titleB}</p>
 
       <div className="mt-7 min-w-0 border-t border-navy/10">
-        <div className="hidden grid-cols-[36px_minmax(0,1fr)_64px_72px_minmax(0,1fr)_120px] gap-3 border-b border-navy/8 py-2.5 text-[10px] font-semibold tracking-[0.12em] text-navy/40 uppercase md:grid">
+        <div className="hidden grid-cols-[36px_minmax(0,1.2fr)_64px_64px_64px_64px_minmax(0,1.5fr)_120px] gap-3 border-b border-navy/8 py-2.5 text-[10px] font-semibold tracking-[0.12em] text-navy/40 uppercase md:grid">
           {t.fairness.columns.map((col) => (
             <span key={col}>{col}</span>
           ))}
         </div>
         <ul className="min-w-0">
-          {demoFairnessData.map((row) => {
+          {sortFairnessByPriority(demoFairnessData).map((row) => {
             const high = row.priority === "ALTA";
-            const meta = t.fairness.mobileMeta
-              .replace("{shifts}", String(row.shifts))
-              .replace("{guide}", String(row.guidePercent));
-
             return (
               <li
                 key={row.id}
@@ -40,12 +37,15 @@ export function FairnessRanking() {
                   high && "bg-[#fff8f1]",
                 )}
               >
+                {/* Mobile version */}
                 <div className="min-w-0 md:hidden">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="tabular text-[11px] text-navy/35">{row.rank}</p>
+                      <p className="tabular text-[11px] text-navy/35">#{row.rank}</p>
                       <p className="mt-0.5 text-sm font-semibold text-navy">{row.label}</p>
-                      <p className="tabular mt-0.5 text-[11px] text-navy/45">{meta}</p>
+                      <p className="tabular mt-0.5 text-[11px] text-navy/45">
+                        P1: {row.posto1} · P2: {row.posto2} · P3: {row.posto3} · P4: {row.posto4}
+                      </p>
                     </div>
                     <div className="max-w-[9.5rem] shrink-0 text-right">
                       <span
@@ -75,11 +75,14 @@ export function FairnessRanking() {
                   </div>
                 </div>
 
-                <div className="hidden min-w-0 grid-cols-[36px_minmax(0,1fr)_64px_72px_minmax(0,1fr)_120px] items-center gap-3 md:grid">
+                {/* Desktop version */}
+                <div className="hidden min-w-0 grid-cols-[36px_minmax(0,1.2fr)_64px_64px_64px_64px_minmax(0,1.5fr)_120px] items-center gap-3 md:grid">
                   <span className="tabular text-xs text-navy/35">{row.rank}</span>
                   <p className="text-sm font-semibold text-navy">{row.label}</p>
-                  <p className="tabular text-sm text-navy/70">{row.shifts}</p>
-                  <p className="tabular text-sm text-navy/70">{row.guidePercent}%</p>
+                  <p className="tabular text-sm text-navy/70">{row.posto1}</p>
+                  <p className="tabular text-sm text-navy/70">{row.posto2}</p>
+                  <p className="tabular text-sm text-navy/70">{row.posto3}</p>
+                  <p className="tabular text-sm text-navy/70">{row.posto4}</p>
                   <div className="h-1.5 min-w-0 overflow-hidden bg-navy/8">
                     <div
                       className={cn(
@@ -113,11 +116,7 @@ export function FairnessRanking() {
         <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3 text-xs text-navy/50">
           <span>{t.fairness.average}</span>
           <span className="tabular">
-            {fairnessTeamAverage.shifts}{" "}
-            {t.fairness.averageDetail.replace(
-              "{n}",
-              String(fairnessTeamAverage.guidePercent),
-            )}
+            {fairnessTeamAverage.shifts} turnos médios · {fairnessTeamAverage.rotationIndex}% de índice de rotação médio
           </span>
         </div>
       </div>
