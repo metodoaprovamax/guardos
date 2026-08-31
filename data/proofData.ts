@@ -19,8 +19,9 @@ export type ProofVoice = {
 };
 
 export const proofData = {
-  photoSrc: "/images/surfland/pedro.png",
-  name: "Pedro",
+  /** No photo slot — coordinator's real photo pending approval. */
+  photoSrc: null as string | null,
+  name: "Benjamin Orlando",
   organization: "Surfland Brasil",
 } as const;
 
@@ -39,10 +40,10 @@ export const comingSoonOperators: OperatorMark[] = [
 
 export const voices: Array<ProofVoice | PendingSlot> = [
   {
-    id: "pedro",
+    id: "benjamin",
     name: proofData.name,
     organization: proofData.organization,
-    photoSrc: proofData.photoSrc,
+    photoSrc: "", // real photo pending — use initials avatar
   },
   { id: "voice-2", pending: true },
 ];

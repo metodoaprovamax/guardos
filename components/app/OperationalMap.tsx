@@ -16,6 +16,7 @@ import {
   clientToMapPercent,
   defaultPlacements,
   type PlacementMap,
+  type PostPlacement,
 } from "@/lib/mapPlacements";
 import { useI18n } from "@/lib/i18n-context";
 import { cn } from "@/lib/cn";
@@ -27,13 +28,21 @@ export function OperationalMap({
   selected: selectedProp,
   onSelectedChange,
   mapSrc = "/guardos/wave-pool-map.jpg",
+  initialPlacements,
+  codeLabels,
+  autoRotate = false,
 }: {
   session: DemoSession;
   preview?: boolean;
-  size?: "preview" | "section" | "capture" | "app";
+  size?: "preview" | "section" | "capture" | "app" | "landing";
   selected?: PostId | null;
   onSelectedChange?: (id: PostId | null) => void;
   mapSrc?: string;
+  initialPlacements?: () => Record<PostId, PostPlacement>;
+  /** Per-post label overrides shown in the chip (e.g. { pier: "LG1", p02: "LG2" }) */
+  codeLabels?: Partial<Record<PostId, string>>;
+  /** When true, markers automatically rotate clockwise through pool positions. */
+  autoRotate?: boolean;
 }) {
   const { t } = useI18n();
   const layerRef = useRef<HTMLDivElement>(null);
@@ -44,7 +53,7 @@ export function OperationalMap({
   const [expanded, setExpanded] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [draggingId, setDraggingId] = useState<PostId | null>(null);
-  const [placements, setPlacements] = useState<PlacementMap>(defaultPlacements);
+  const [placements, setPlacements] = useState<PlacementMap>(initialPlacements ?? defaultPlacements);
   const [internalSelected, setInternalSelected] = useState<PostId | null>(null);
   const [imageFailed, setImageFailed] = useState(false);
   const selected = selectedProp !== undefined ? selectedProp : internalSelected;
@@ -64,6 +73,36 @@ export function OperationalMap({
     (post) => post.id === selected && placements[post.id].onMap,
   );
   const selectedAssignment = selectedPost ? session.assignments[selectedPost.id] : null;
+
+  // Auto-rotation: cycle all markers clockwise so guards physically move on the map.
+  useEffect(() => {
+    if (!autoRotate) return;
+    const ROTATION_MS = 3000;
+    const timerId = setInterval(() => {
+      setPlacements((prev) => {
+        const onMap = mapPosts
+          .filter((p) => prev[p.id]?.onMap)
+          .map((p) => ({
+            id: p.id as PostId,
+            x: prev[p.id].x,
+            y: prev[p.id].y,
+            angle: Math.atan2(prev[p.id].y - 50, prev[p.id].x - 50),
+          }))
+          .sort((a, b) => a.angle - b.angle);
+
+        if (onMap.length < 2) return prev;
+
+        const coords = onMap.map((p) => ({ x: p.x, y: p.y }));
+        const next = { ...prev };
+        onMap.forEach((p, i) => {
+          const nextI = (i + 1) % onMap.length;
+          next[p.id] = { ...prev[p.id], x: coords[nextI].x, y: coords[nextI].y };
+        });
+        return next;
+      });
+    }, ROTATION_MS);
+    return () => clearInterval(timerId);
+  }, [autoRotate]);
 
   useEffect(() => {
     setSelected(null);
@@ -205,6 +244,7 @@ export function OperationalMap({
           (preview || size === "preview") &&
             "aspect-[16/10] min-h-[220px] sm:min-h-[260px]",
           size === "section" && "h-[min(52vh,520px)] min-h-[320px]",
+          size === "landing" && "aspect-[16/10] min-h-[400px] max-h-[580px]",
           size === "capture" && "h-[min(56vh,620px)] min-h-[300px]",
           !preview && size === "app" && !expanded && "h-[min(68vh,720px)] min-h-[420px]",
           expanded && "h-full min-h-0",
@@ -230,12 +270,23 @@ export function OperationalMap({
           ) : (
             <WavePoolFallback />
           )}
+          {/* only the background image lives inside overflow-hidden */}
+        </div>
+
+        {/* marker layer: sits outside overflow:hidden so avatars never get clipped */}
+        <div
+          className={cn(
+            "map-motion pointer-events-none absolute inset-0 origin-center overflow-visible",
+            draggingId ? "transition-none" : "transition-transform duration-500 ease-out",
+          )}
+          style={{ transform: `scale(${zoom})` }}
+        >
           {livePosts
             .filter((post) => placements[post.id].onMap)
             .map((post) => (
               <div
                 key={post.id}
-                className="contents"
+                className="pointer-events-auto contents"
                 onClick={(event) => event.stopPropagation()}
               >
                 <PostMarker
@@ -244,6 +295,7 @@ export function OperationalMap({
                   selected={selected === post.id}
                   zoom={zoom}
                   dragging={draggingId === post.id}
+                  codeOverride={codeLabels?.[post.id]}
                   minutesUntilSwap={minutesUntilSwap(
                     session,
                     session.assignments[post.id],
@@ -315,7 +367,7 @@ export function OperationalMap({
               onPlaceMove={onPanelPointerMove}
               onPlaceEnd={onPanelPointerUp}
               onReset={() => {
-                setPlacements(defaultPlacements());
+                setPlacements((initialPlacements ?? defaultPlacements)());
                 setSelected(null);
               }}
               onClose={() => setPanelOpen(false)}

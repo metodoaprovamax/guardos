@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { CtaButton } from "@/components/CtaButton";
+import { images } from "@/data/imageSlots";
 import { bahrainText } from "@/data/bahrainCopy";
 import { site } from "@/data/site";
 import { useI18n } from "@/lib/i18n-context";
@@ -13,7 +14,7 @@ export function BahrainHero() {
   return (
     <section className="relative min-h-[88svh] overflow-hidden bg-[#0a1c22] pt-[72px] lg:min-h-[100svh]">
       <Image
-        src="/images/surfland-real-aerial.webp"
+        src={images.surflandHero}
         alt={copy.imageAlt}
         fill
         priority
