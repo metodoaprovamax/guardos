@@ -70,7 +70,7 @@ export function PostMarker({
     >
       <span
         className={cn(
-          "relative flex transition-transform duration-200",
+          "relative flex transition-transform duration-200 max-sm:scale-90",
           selected ? "scale-110" : "hover:scale-105",
         )}
       >

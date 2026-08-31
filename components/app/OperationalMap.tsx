@@ -244,7 +244,7 @@ export function OperationalMap({
           (preview || size === "preview") &&
             "aspect-[16/10] min-h-[220px] sm:min-h-[260px]",
           size === "section" && "h-[min(52vh,520px)] min-h-[320px]",
-          size === "landing" && "aspect-[16/10] min-h-[400px] max-h-[580px]",
+          size === "landing" && "aspect-[16/9.5] w-full max-h-[580px]",
           size === "capture" && "h-[min(56vh,620px)] min-h-[300px]",
           !preview && size === "app" && !expanded && "h-[min(68vh,720px)] min-h-[420px]",
           expanded && "h-full min-h-0",
@@ -264,7 +264,7 @@ export function OperationalMap({
             <img
               src={mapSrc}
               alt={t.ui.mapAlt}
-              className="h-full w-full object-cover object-[center_42%]"
+              className="h-full w-full object-cover object-center"
               onError={() => setImageFailed(true)}
             />
           ) : (
